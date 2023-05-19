@@ -1,18 +1,23 @@
+import sys
+import os
 from classes.image_generator import ImageGenerator
 from classes.image_encrypting import VisualCryptography
 from classes.image_transparency import ImageTransparency
 from classes.image_merger import ImageMerger
 
-
 def main():
-    # Change this line for different inputs
-    text_input = "Test"
+    if len(sys.argv) != 3:
+        print("Usage: python main.py <text> <private_key>")
+        return
 
-    private_key = None
-    # Change this line for different private keys or comment it out to generate a new one
-    private_key = "private_keys/hello_my_name_is_clara_brown.png"
+    text_input = sys.argv[1]
+    private_key_filename = sys.argv[2]
+    private_key_path = f"private_keys/{private_key_filename}"
+    private_key_extension = os.path.splitext(private_key_filename)[1]
 
-    assert len(text_input) <= 8, "Input text should be up to 8 characters"
+    if private_key_extension.lower() != ".png":
+        print("Private key file should be in PNG format.")
+        return
 
     # Generate the image
     img_gen = ImageGenerator(text_input)
@@ -20,7 +25,7 @@ def main():
 
     # Prepare the image for encryption
     message_image = f"messages/{text_input}/message_{text_input}.png"
-    vc = VisualCryptography(message=text_input, message_image=message_image, private_key=private_key)
+    vc = VisualCryptography(message=text_input, message_image=message_image, private_key=private_key_path)
     vc.run()
 
     # Apply image transparency to the key images

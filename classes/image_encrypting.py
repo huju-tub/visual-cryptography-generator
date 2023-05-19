@@ -1,8 +1,6 @@
 from PIL import Image
 import os
 import random
-import argparse
-import logging
 
 class VisualCryptography:
     def __init__(self, message, message_image, private_key=None):
@@ -38,7 +36,7 @@ class VisualCryptography:
                 private_key_image.putpixel((x + 1, y + 1), color)
         return private_key_image
 
-    def generate_key_b(self, secret_image, prepared_image):
+    def generate_public_key(self, secret_image, prepared_image):
         width, height = prepared_image.size
         public_key_image = Image.new(mode="1", size=(width * 2, height * 2))
         for x in range(0, width * 2, 2):
@@ -86,7 +84,7 @@ class VisualCryptography:
             #     return
 
         prepared_image = self.prepare_message_image(message_image, size)
-        public_key_image = self.generate_key_b(private_key_image, prepared_image)
+        public_key_image = self.generate_public_key(private_key_image, prepared_image)
 
         public_key_filename = f"messages/{self.message}/public_key_{self.message}.png"
 
@@ -96,7 +94,7 @@ class VisualCryptography:
             if isWithPrivateKey:
                 private_key_image.save(self.private_key)
                 print(f"Saved private key image as '{self.private_key}'")
-            print(f"Saved private key image as 'messages/{self.message}/public_key_{self.message}.png'")
+            print(f"Saved private key image as 'messages/{self.message}/private_key_{self.message}.png'")
         except IOError as e:
             print(f"Error: Failed to save private key image '{self.private_key}': {str(e)}")
 
