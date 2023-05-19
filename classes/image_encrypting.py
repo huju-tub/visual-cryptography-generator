@@ -79,10 +79,6 @@ class VisualCryptography:
                 print(f"Error: Failed to load private key image '{self.private_key}': {str(e)}")
                 return
 
-            # if private_key_image.size != size:
-            #     print(f"Error: Private key image '{self.private_key}' is not the same size as the message image")
-            #     return
-
         prepared_image = self.prepare_message_image(message_image, size)
         public_key_image = self.generate_public_key(private_key_image, prepared_image)
 

@@ -40,8 +40,8 @@ class ImageGenerator:
 
 
 def main():
-    text_input = input("Enter your text (1-8 characters): ")  # User-provided input
-    assert 1 <= len(text_input) <= 8, "Input text should be 1 to 8 characters long"
+    text_input = input("Enter your text (1-10 characters): ")  # User-provided input
+    assert 1 <= len(text_input) <= 10, "Input text should be 1 to 8 characters long"
     img_gen = ImageGenerator(text_input)
     img_gen.create_image()
 
