@@ -43,8 +43,13 @@ To run the main file of the project, execute the following command:
 
 `python main.py <text> <private_key>`
 
-Replace <text> with the text you want to encrypt and <private_key> with the name of the private key file (e.g., secret_1.png). The private key file should be saved in the private_keys/ directory and must be in PNG format.
+- `<text>` (optional): The text to encrypt (up to 10 characters). If not specified, it will prompt for user input.
+- `<private_key>` (optional): The private key filename. If not specified, it will default to default.png.
 
 For example, to encrypt the word "hello" using the private key file secret_1.png, you would run:
 
 `python main.py hello secret_1.png`
+
+If you omit the arguments, it will prompt you to enter the text and the private key filename in the terminal:
+
+`python main.py`
