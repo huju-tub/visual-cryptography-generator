@@ -4,6 +4,7 @@ from classes.image_generator import ImageGenerator
 from classes.image_encrypting import VisualCryptography
 from classes.image_transparency import ImageTransparency
 from classes.image_merger import ImageMerger
+from classes.image_upscaler import ImageUpscaler
 
 MAX_TEXT_LENGTH = 10
 
@@ -38,7 +39,7 @@ def main():
         return
 
     # Generate the image
-    img_gen = ImageGenerator(text_input)
+    img_gen = ImageGenerator(text_input, image_size=(50, 50))
     img_gen.create_image()
 
     # Prepare the image for encryption
@@ -58,6 +59,9 @@ def main():
 
     image_transparency.make_transparent_white(f"messages/{text_input}/transparent/decrypted_message.png",
                                               f"messages/{text_input}/decrypted_message.png")
+
+    image_upscaler = ImageUpscaler(f"messages/{text_input}", 4)
+    image_upscaler.upscale_images_in_directory()
 
 
 if __name__ == "__main__":
