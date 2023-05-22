@@ -2,7 +2,7 @@ import sys
 import os
 import argparse
 from classes.image_generator import ImageGenerator
-from classes.image_encrypting import VisualCryptography
+from classes.image_encrypting import ImageEncrypting
 from classes.image_transparency import ImageTransparency
 from classes.image_merger import ImageMerger
 from classes.image_upscaler import ImageUpscaler
@@ -17,9 +17,9 @@ def process_text(text_input, image_size_option, image_size, scale_factor, privat
     # Prepare the image for encryption
     image_suffix = "_small" if image_size_option == "small" else "_large"
     message_image = f"messages/{text_input}{image_suffix}/message_{text_input}{image_suffix}.png"
-    vc = VisualCryptography(message=text_input, message_image=message_image, private_key=private_key_path,
-                            image_suffix=image_suffix)
-    vc.run()
+    encrypting = ImageEncrypting(message=text_input, message_image=message_image, private_key=private_key_path,
+                         image_suffix=image_suffix)
+    encrypting.run()
 
     # Apply image transparency to the key images
     image_transparency = ImageTransparency()

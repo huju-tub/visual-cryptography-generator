@@ -2,7 +2,7 @@ from PIL import Image
 import os
 import random
 
-class VisualCryptography:
+class ImageEncrypting:
     def __init__(self, message, message_image, private_key=None, image_suffix="_small"):
         self.message = message
         self.message_image = message_image
@@ -107,4 +107,4 @@ class VisualCryptography:
 
 
 if __name__ == "__main__":
-    VisualCryptography(message="TEST2", message_image="../messages/TEST2/message_TEST2.png").run()
+    ImageEncrypting(message="TEST2", message_image="../messages/TEST2/message_TEST2.png").run()
