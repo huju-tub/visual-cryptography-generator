@@ -1,9 +1,10 @@
 import cv2
 import os
 
-class VideoMaker:
-    def __init__(self, video_name, fps):
-        self.image_folder = os.path.join(os.getcwd(), '../video_images')
+
+class VideoFromImages:
+    def __init__(self, image_folder, video_name, fps):
+        self.image_folder = os.path.join(os.getcwd(), image_folder)
         self.video_name = video_name
         self.fps = fps
 
@@ -24,10 +25,13 @@ class VideoMaker:
 
         cv2.destroyAllWindows()
         video.release()
+        print(f"Video saved to {self.video_name}")
+
 
 def main():
-    video_maker = VideoMaker('../videos/output_video.avi', 1)
+    video_maker = VideoFromImages('../video_images/upscaled', '../videos/output_video.avi', 1)
     video_maker.make_video()
+
 
 if __name__ == "__main__":
     main()
