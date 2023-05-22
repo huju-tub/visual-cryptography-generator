@@ -7,6 +7,7 @@ class ImageGenerator:
         self.text = text
         self.font_path = font_path
         self.image_size = image_size
+        self.image_suffix = "_small" if image_size == (50, 50) else "_large"
         self.font_size = font_size
 
     def create_image(self):
@@ -30,12 +31,12 @@ class ImageGenerator:
             os.makedirs('messages')
 
         # Ensure the directory named after the input text exists
-        folder_path = os.path.join('messages', self.text)
+        folder_path = os.path.join('messages', self.text + self.image_suffix)
         if not os.path.exists(folder_path):
             os.makedirs(folder_path)
 
         # Save the image with the input text prefixed with "message_"
-        image_path = os.path.join(folder_path, f'message_{self.text}.png')
+        image_path = os.path.join(folder_path, f'message_{self.text}{self.image_suffix}.png')
         image.save(image_path)
 
 

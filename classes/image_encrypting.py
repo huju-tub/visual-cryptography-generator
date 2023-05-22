@@ -3,10 +3,11 @@ import os
 import random
 
 class VisualCryptography:
-    def __init__(self, message, message_image, private_key=None):
+    def __init__(self, message, message_image, private_key=None, image_suffix="_small"):
         self.message = message
         self.message_image = message_image
         self.private_key = private_key
+        self.image_suffix = image_suffix
 
     def load_image(self, name):
         return Image.open(name)
@@ -66,7 +67,7 @@ class VisualCryptography:
         isWithPrivateKey = False
 
         if not self.private_key:
-            self.private_key = f"messages/{self.message}/private_key_{self.message}.png"
+            self.private_key = f"messages/{self.message}{self.image_suffix}/private_key_{self.message}{self.image_suffix}.png"
             private_key_image = self.generate_private_key(size)
         elif not os.path.isfile(self.private_key):
             isWithPrivateKey = True
@@ -82,15 +83,15 @@ class VisualCryptography:
         prepared_image = self.prepare_message_image(message_image, size)
         public_key_image = self.generate_public_key(private_key_image, prepared_image)
 
-        public_key_filename = f"messages/{self.message}/public_key_{self.message}.png"
+        public_key_filename = f"messages/{self.message}{self.image_suffix}/public_key_{self.message}{self.image_suffix}.png"
 
         try:
             os.makedirs(os.path.dirname(self.private_key), exist_ok=True)
-            private_key_image.save(f"messages/{self.message}/private_key_{self.message}.png")
+            private_key_image.save(f"messages/{self.message}{self.image_suffix}/private_key_{self.message}{self.image_suffix}.png")
             if isWithPrivateKey:
                 private_key_image.save(self.private_key)
                 print(f"Saved private key image as '{self.private_key}'")
-            print(f"Saved private key image as 'messages/{self.message}/private_key_{self.message}.png'")
+            print(f"Saved private key image as 'messages/{self.message}{self.image_suffix}/private_key_{self.message}{self.image_suffix}.png'")
         except IOError as e:
             print(f"Error: Failed to save private key image '{self.private_key}': {str(e)}")
 
