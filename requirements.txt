@@ -3,3 +3,4 @@ mkl-random==1.2.2
 mkl-service==2.4.0
 numpy==1.24.3
 Pillow==9.5.0
+opencv-python~=4.7.0.72

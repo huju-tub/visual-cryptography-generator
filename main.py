@@ -29,12 +29,12 @@ def process_text(text_input, image_size_option, image_size, scale_factor, privat
     # Merge the key images
     merger = ImageMerger(f"messages/{text_input}{image_suffix}/transparent/private_key_{text_input}{image_suffix}.png",
                          f"messages/{text_input}{image_suffix}/transparent/public_key_{text_input}{image_suffix}.png",
-                         f"messages/{text_input}{image_suffix}/transparent/decrypted_message{image_suffix}.png")
+                         f"messages/{text_input}{image_suffix}/transparent/decrypted_message_{text_input}{image_suffix}.png")
     merger.process()
 
     image_transparency.make_transparent_white(
-        f"messages/{text_input}{image_suffix}/transparent/decrypted_message{image_suffix}.png",
-        f"messages/{text_input}{image_suffix}/decrypted_message{image_suffix}.png")
+        f"messages/{text_input}{image_suffix}/transparent/decrypted_message_{text_input}{image_suffix}.png",
+        f"messages/{text_input}{image_suffix}/decrypted_message_{text_input}{image_suffix}.png")
 
     image_upscaler = ImageUpscaler(f"messages/{text_input}{image_suffix}", scale_factor=scale_factor)
     image_upscaler.upscale_images_in_directory()
