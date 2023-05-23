@@ -1,6 +1,6 @@
 import cv2
 import os
-
+import re
 
 class VideoFromImages:
     def __init__(self, image_folder, video_name, fps):
@@ -10,7 +10,7 @@ class VideoFromImages:
 
     def make_video(self):
         images = [img for img in os.listdir(self.image_folder) if img.endswith(".png")]
-        images.sort()  # so that the images are in order
+        images.sort(key=lambda f: int(re.sub('\D', '', f)))  # sort the images in numerical order
 
         frame = cv2.imread(os.path.join(self.image_folder, images[0]))
         height, width, layers = frame.shape
@@ -29,7 +29,7 @@ class VideoFromImages:
 
 
 def main():
-    video_maker = VideoFromImages('../video_images/upscaled', '../videos/output_video.avi', 1)
+    video_maker = VideoFromImages('../video_images/message/upscaled', '../videos/original.avi', 2)
     video_maker.make_video()
 
 

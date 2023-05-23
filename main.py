@@ -9,7 +9,7 @@ from classes.image_upscaler import ImageUpscaler
 from classes.video_from_images import VideoFromImages
 import shutil
 
-MAX_TEXT_LENGTH = 10
+MAX_TEXT_LENGTH = 20
 
 
 def process_text(idx, text_input, image_suffix, image_size, scale_factor, private_key_path, video_scale_factor=10):
@@ -65,9 +65,14 @@ def main():
 
     args = parser.parse_args()
 
-    if args.video and not args.split:
-        print("Error: Video option can only be used with split option.")
-        return
+    if args.video:
+        if not args.split:
+            print("Error: Video option can only be used with split option.")
+            return
+        # Delete contents of video_images directory
+        if os.path.exists('video_images'):
+            shutil.rmtree('video_images')
+
     if args.text:
         if args.split:
             text_inputs = args.text.split()
@@ -119,8 +124,6 @@ def main():
         video_maker = VideoFromImages("video_images/public_key/upscaled", "videos/encrypted.avi", 2)
         video_maker.make_video()
 
-        # Delete contents of video_images directory
-        shutil.rmtree('video_images')
 
 
 if __name__ == "__main__":
