@@ -6,6 +6,7 @@ from classes.image_encrypting import ImageEncrypting
 from classes.image_transparency import ImageTransparency
 from classes.image_merger import ImageMerger
 from classes.image_upscaler import ImageUpscaler
+from classes.text_parser import TextParser
 from classes.video_from_images import VideoFromImages
 import shutil
 
@@ -62,6 +63,7 @@ def main():
     parser.add_argument('-s', '--size', help='Image size: small or large', default="small")
     parser.add_argument('-f', '--file', help='The private key file', default=None)
     parser.add_argument('-v', '--video', help='Video: Create a video from sentence', action='store_true')
+    parser.add_argument('-ml', '--multiline', help='Multiline: Accept multiline text input (end input with --)', action='store_true')
 
     args = parser.parse_args()
 
@@ -75,13 +77,21 @@ def main():
 
     if args.text:
         if args.split:
-            text_inputs = args.text.split()
+            if args.multiline:
+                text_parser = TextParser(input_string=args.text)
+                text_inputs = text_parser.replace_symbols_with_space(['\n', '.', ',', '(', ')']).split()
+            if not args.multiline:
+                text_inputs = args.text.split()
         else:
             text_inputs = [args.text]
     else:
         if args.split:
-            text_input = input("Enter the text to encrypt (max 10 characters per word): ")
-            text_inputs = text_input.split()
+            if args.multiline:
+                text_parser = TextParser(input_text="Enter lines of text. Type '--' when you're done: ")
+                text_inputs = text_parser.replace_symbols_with_space(['\n', '.', ',', '(', ')']).split()
+            if not args.multiline:
+                text_input = input("Enter the text to encrypt (max 10 characters per word): ")
+                text_inputs = text_input.split()
         else:
             text_input = input("Enter the text to encrypt (max 10 characters): ")
             text_inputs = [text_input]
