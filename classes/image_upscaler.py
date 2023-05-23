@@ -27,7 +27,7 @@ class ImageUpscaler:
         save_path = os.path.join(upscaled_folder, f'{file_name}_upscaled.png')
         upscaled_image.save(save_path)
 
-        print(f"Upscaled image saved: {save_path}")
+        # print(f"Upscaled image saved: {save_path}")
 
     def upscale_images_in_directory(self):
         # Get a list of all image files in the directory
